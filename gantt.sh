@@ -6,16 +6,16 @@ start="1 feb 2017"
 # Tasks followed by "=" and a duration in days
 readonly tasks=(
 
-	"Sequi esse et occaecati perferendis	= 5"
-	"Rerum laboriosam itaque cupiditate		= 10"
-	"Commodi dolorem quas debitis					= 1"
-	"Voluptas at repudiandae qui					= 2"
-	"Earum nesciunt												= 4"
-	"Possimus non et											= 7"
-	"Amet																	= 8"
-	"Amet sit															= 9"
-	"Reiciendis														= 2"
-	"Qui																	= 1"
+	"Sequi esse et occaecati perferendis = 5"
+	"Rerum laboriosam itaque cupiditate = 10"
+	"Commodi dolorem quas debitis = 1"
+	"Voluptas at repudiandae qui = 2"
+	"Earum nesciunt = 4"
+	"Possimus non et = 7"
+	"Amet = 8"
+	"Amet sit = 9"
+	"Reiciendis = 2"
+	"Qui = 1"
 )
 
 # Init
