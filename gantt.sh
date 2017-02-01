@@ -1,6 +1,11 @@
 #!/bin/bash
 
+# Start week
+start="1 feb 2017"
+
+# Tasks followed by "=" and a duration in days
 readonly tasks=(
+
 	"Sequi esse et occaecati perferendis	= 5"
 	"Rerum laboriosam itaque cupiditate		= 10"
 	"Commodi dolorem quas debitis					= 1"
@@ -14,57 +19,37 @@ readonly tasks=(
 )
 
 readonly count=${#tasks[*]}
-echo number of titles $count
+indent=0
 
 for (( i = 0; i < $count; ++i )); do 
 
 	task=${tasks[i]}
 
-	[[ $task =~ =\ *(.*) ]] && duration=${BASH_REMATCH[1]}
+	# Only print bar if we can extract a duration
+	if [[ $task =~ =\ *(.*) ]]; then
 
-	# Print each title
-	echo ${task%=*} $duration
+		# Store duration
+		duration=${BASH_REMATCH[1]}
+
+		# Construct task bar
+		bar=''
+		for (( j = 0; j < $indent; ++j )); do bar+=" "; done
+		for (( j = 0; j < $duration; ++j )); do bar+="-"; done
+
+		# Print the bar and title
+		echo -e "$(( i + 1 ))\t$bar  ${task%=*}"
+
+		# Update indent by current task length
+		(( indent += duration ))
+	fi
 
 done
 
-# declare -A tasks
-# 
-# tasks["1_this"]=4
-# tasks["2_that"]=7
-# tasks["3_something"]=10
-# tasks["4_else"]=10
-# tasks["5_foo"]=10
-# tasks["6_baa"]=10
+# Calcuate number of weeks
+readonly weeks=$(( indent / 5 ))
 
-# # Clear the screen
-# clear
-# 
-# # Start week
-# start="1 feb 2017"
-# 
-# # Print tasks
-# y=1
-# indent=0
-# for key in ${!tasks[*]}; do
-# 
-# 	# Create bar
-# 	bar=''
-# 	length=${tasks["$key"]}
-# 	(( indent += $length ))
-# 
-# 	for (( i=0; i < $length; ++i)); do bar+='-'; done
-# 
-# 	echo -en "$bar $key"
-# 	tput cup $y $indent
-# 
-# 	(( ++y ))
-# done
-# 
-# # Calcuate number of weeks
-# tput cup $y 0
-# readonly weeks=$(( indent / 5 ))
-# 
-# # Print summary
-# echo Total weeks $weeks
-# echo $(date --date="$start")
-# echo $(date --date="$start" -d "$weeks weeks")
+# Print summary
+echo -e "\nTasks $count"
+echo "Weeks $weeks"
+echo $(date --date="$start")
+echo $(date --date="$start" -d "$weeks weeks")
