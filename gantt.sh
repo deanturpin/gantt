@@ -2,12 +2,12 @@
 
 declare -A tasks
 
-tasks["one"]=4
-tasks["two"]=7
-tasks["three"]=10
-tasks["four"]=10
-tasks["five"]=10
-tasks["six"]=10
+tasks["1_this"]=4
+tasks["2_that"]=7
+tasks["3_something"]=10
+tasks["4_else"]=10
+tasks["5_foo"]=10
+tasks["6_baa"]=10
 
 # Clear the screen
 clear
@@ -22,7 +22,7 @@ for key in ${!tasks[*]}; do
 
 	# Create bar
 	bar=''
-	length=${tasks[$key]}
+	length=${tasks["$key"]}
 	(( indent += $length ))
 
 	for (( i=0; i < $length; ++i)); do bar+='-'; done
