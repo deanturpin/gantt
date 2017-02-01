@@ -18,9 +18,11 @@ readonly tasks=(
 	"Qui																	= 1"
 )
 
+# Init
 readonly count=${#tasks[*]}
 indent=0
 
+# Iterate over tasks
 for (( i = 0; i < $count; ++i )); do 
 
 	task=${tasks[i]}
@@ -32,24 +34,28 @@ for (( i = 0; i < $count; ++i )); do
 		duration=${BASH_REMATCH[1]}
 
 		# Construct task bar
-		bar=''
+		bar='|'
 		for (( j = 0; j < $indent; ++j )); do bar+=" "; done
-		for (( j = 0; j < $duration; ++j )); do bar+="-"; done
+		for (( j = 0; j < $duration; ++j )); do bar+="#"; done
 
 		# Print the bar and title
-		echo -e "$(( i + 1 ))\t$bar  ${task%=*}"
+		echo -e "$bar $(( i+1 )). ${task%=*}"
 
 		# Update indent by current task length
 		(( indent += duration ))
 	fi
-
 done
 
 # Calcuate number of weeks
-readonly weeks=$(( indent / 5 ))
+readonly weeks=$(( indent/5 ))
+
+# Print bottom bar
+echo -n '|'
+for (( j = 0; j < $(( weeks+3 )); ++j )); do echo -n "_____"; done
+echo
 
 # Print summary
 echo -e "\nTasks $count"
-echo "Weeks $weeks"
-echo $(date --date="$start")
-echo $(date --date="$start" -d "$weeks weeks")
+echo Weeks $weeks
+echo Start $(date +"%d %b %Y" --date="$start")
+echo Compl $(date +"%d %b %Y" --date="$start" -d "$weeks weeks")
