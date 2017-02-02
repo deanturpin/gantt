@@ -1,5 +1,3 @@
-Simple command line Gantt chart.
-
 ```bash
 ./gantt.sh < tasks.txt 
 |##### 3. Sequi esse et occaecati perferendis
