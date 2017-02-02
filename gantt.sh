@@ -15,12 +15,12 @@ readonly tasks=(
 	"Amet = 8"
 	"Amet sit = 9"
 	"Reiciendis = 2"
-	"Qui = 1"
+	"Qui = 8"
 )
 
 # Init
 readonly count=${#tasks[*]}
-indent=0
+days=0
 
 # Iterate over tasks
 for (( i = 0; i < $count; ++i )); do 
@@ -28,26 +28,26 @@ for (( i = 0; i < $count; ++i )); do
 	task=${tasks[i]}
 
 	# Only print bar if we can extract a duration
-	if [[ $task =~ =\ *(.*) ]]; then
+	if [[ $task =~ =\ *([0-9]+) ]]; then
 
 		# Store duration
 		duration=${BASH_REMATCH[1]}
 
 		# Construct task bar
 		bar='|'
-		for (( j = 0; j < $indent; ++j )); do bar+=" "; done
+		for (( j = 0; j < $days; ++j )); do bar+=" "; done
 		for (( j = 0; j < $duration; ++j )); do bar+="#"; done
 
-		# Print the bar and title
-		echo -e "$bar $(( i+1 )). ${task%=*}"
+		# Print bar and title
+		echo "$bar $(( i+1 )). ${task%=*}"
 
-		# Update indent by current task length
-		(( indent += duration ))
+		# Update days by current task length
+		(( days += duration ))
 	fi
 done
 
 # Calcuate number of weeks
-readonly weeks=$(( indent/5 ))
+readonly weeks=$(( days/5 ))
 
 # Print bottom bar
 echo -n '|'
