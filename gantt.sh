@@ -3,20 +3,8 @@
 # Start week
 start="1 feb 2017"
 
-# Tasks followed by "=" and a duration in days
-readonly tasks=(
-
-	"Sequi esse et occaecati perferendis = 5"
-	"Rerum laboriosam itaque cupiditate = 10"
-	"Commodi dolorem quas debitis = 1"
-	"Voluptas at repudiandae qui = 2"
-	"Earum nesciunt = 4"
-	"Possimus non et = 7"
-	"Amet = 8"
-	"Amet sit = 9"
-	"Reiciendis = 2"
-	"Qui = 8"
-)
+# Read tasks from stdin
+mapfile tasks
 
 # Initialise total days
 days=0
@@ -27,10 +15,12 @@ for (( i = 0; i < ${#tasks[*]}; ++i )); do
 	task=${tasks[i]}
 
 	# Only print bar if we can extract a duration
-	if [[ $task =~ =\ *([0-9]+) ]]; then
+	# if [[ $task =~ ^(.*)\ +([0-9]+)$ ]]; then
+	if [[ $task =~ (.*)\ +([[:digit:]]+) ]]; then
 
-		# Store duration
-		duration=${BASH_REMATCH[1]}
+		# Store title and duration
+		title=${BASH_REMATCH[1]}
+		duration=${BASH_REMATCH[2]}
 
 		# Construct task bar
 		bar='|'
@@ -38,7 +28,7 @@ for (( i = 0; i < ${#tasks[*]}; ++i )); do
 		for (( j = 0; j < $duration; ++j )); do bar+="#"; done
 
 		# Print bar and title
-		echo "$bar $(( i+1 )). ${task%=*}"
+		echo "$bar $(( i+1 )). $title"
 
 		# Update days by current task length
 		(( days += duration ))
