@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start week
-start="1 feb 2017"
+readonly start="1 feb 2017"
 
 # Read tasks from stdin
 mapfile tasks
@@ -44,7 +44,7 @@ done
 readonly weeks=$(( days/5 ))
 
 # Print summary
-echo -e "\nTasks $count"
+echo Tasks $count
 echo Weeks $weeks
 echo Start $(date +"%d %b %Y" --date="$start")
 echo Compl $(date +"%d %b %Y" --date="$start" -d "$weeks weeks")
