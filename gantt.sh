@@ -18,12 +18,11 @@ readonly tasks=(
 	"Qui = 8"
 )
 
-# Init
-readonly count=${#tasks[*]}
+# Initialise total days
 days=0
 
 # Iterate over tasks
-for (( i = 0; i < $count; ++i )); do 
+for (( i = 0; i < ${#tasks[*]}; ++i )); do 
 
 	task=${tasks[i]}
 
@@ -55,7 +54,7 @@ for (( j = 0; j < $(( weeks+3 )); ++j )); do echo -n "_____"; done
 echo
 
 # Print summary
-echo -e "\nTasks $count"
+echo -e "\nTasks ${#tasks[*]}"
 echo Weeks $weeks
 echo Start $(date +"%d %b %Y" --date="$start")
 echo Compl $(date +"%d %b %Y" --date="$start" -d "$weeks weeks")
