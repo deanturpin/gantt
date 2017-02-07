@@ -32,8 +32,11 @@ for (( i = 0; i < ${#tasks[*]}; ++i )); do
 		for (( j = 0; j < $(( duration-1 )); ++j )); do bar+="-"; done
 		bar+='|'
 
+        # Pretty print day count
+        [[ $duration == 1 ]] && daytext="day" || daytext="days"
+
 		# Print bar and title
-		echo "$bar" $count. $title "($duration days)"
+		echo "$bar" $count $title "($duration $daytext)"
 
 		# Update days by current task length
 		(( days += duration ))
@@ -44,7 +47,7 @@ done
 readonly weeks=$(( days/5 ))
 
 # Print summary
-echo -e "\nTasks $count"
+echo Tasks $count
 echo Weeks $weeks
 echo Start $(date +"%d %b %Y" --date="$start")
 echo Compl $(date +"%d %b %Y" --date="$start" -d "$weeks weeks")
