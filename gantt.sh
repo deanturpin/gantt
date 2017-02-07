@@ -20,7 +20,7 @@ for (( i = 0; i < ${#tasks[*]}; ++i )); do
 	# Only print bar if we can extract a duration
 	if [[ $task =~ ([^\#]*)\ +([[:digit:]]+) ]]; then
 
-        (( ++count ))
+		(( ++count ))
 
 		# Store title and duration
 		title=${BASH_REMATCH[1]}
@@ -32,8 +32,8 @@ for (( i = 0; i < ${#tasks[*]}; ++i )); do
 		for (( j = 0; j < $(( duration-1 )); ++j )); do bar+="-"; done
 		bar+='|'
 
-        # Pretty print day count
-        [[ $duration == 1 ]] && daytext="day" || daytext="days"
+		# Pretty print day count
+		[[ $duration == 1 ]] && daytext="day" || daytext="days"
 
 		# Print bar and title
 		echo "$bar" $count $title "($duration $daytext)"
