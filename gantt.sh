@@ -32,8 +32,11 @@ for (( i = 0; i < ${#tasks[*]}; ++i )); do
 		for (( j = 0; j < $(( duration-1 )); ++j )); do bar+="-"; done
 		bar+='|'
 
+        # Pretty print day count
+        [[ $duration == 1 ]] && daytext="day" || daytext="days"
+
 		# Print bar and title
-		echo "$bar" $count. $title "($duration days)"
+		echo "$bar" $count $title "($duration $daytext)"
 
 		# Update days by current task length
 		(( days += duration ))
