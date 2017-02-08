@@ -1,24 +1,20 @@
 #!/bin/bash
 
-# Start week
-readonly start="1 feb 2017"
-
 # Read tasks from stdin
 mapfile tasks
 
-# Initialise total days and task count
+# Initialise
 days=0
+secs=0
 count=0
-
-clear
 
 # Iterate over tasks
 for (( i = 0; i < ${#tasks[*]}; ++i )); do 
 
 	task=${tasks[i]}
 
-	# Only print bar if we can extract a duration
-	if [[ $task =~ ([^\#]*)\ +([[:digit:]]+) ]]; then
+	# Extract task
+	if [[ $task =~ ^([^\#]*)\ +([[:digit:]]+) ]]; then
 
 		(( ++count ))
 
@@ -40,14 +36,26 @@ for (( i = 0; i < ${#tasks[*]}; ++i )); do
 
 		# Update days by current task length
 		(( days += duration ))
+
+	# Extract start date
+	elif [[ $task =~ start\ (.*) ]]; then
+
+		secs=$(date +%s --date="${BASH_REMATCH[1]}")
+		# echo $secs
 	fi
+
+	# Set date to today if it hasn't been set
+	[[ $secs == 0 ]] && secs=$(date +%s)
 done
 
 # Calcuate number of weeks
 readonly weeks=$(( days/5 ))
 
+# Calculate end taking into account weekends
+readonly end=$(( secs + (days * 60 * 60 * 24) * 7 / 5 ))
+
 # Print summary
 echo Tasks $count
 echo Weeks $weeks
-echo Start $(date +"%d %b %Y" --date="$start")
-echo Compl $(date +"%d %b %Y" --date="$start" -d "$weeks weeks")
+echo Start $(date +"%d %b %Y" --date="@$secs")
+echo Compl $(date +"%d %b %Y" --date="@$end")

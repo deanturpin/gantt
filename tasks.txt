@@ -1,12 +1,9 @@
-# Task title followed by a space and a duration in whole days
+# Task title followed by space(s) and a duration in whole days
+# start 2 jan
 
-1 Sequi esse et occaecati perferendis 5
+1 Sequi esse et occaecati perferendis     5
 Rerum laboriosam itaque cupiditate 10
-Commodi 2 dolorem quas debitis 1
-Voluptas at repudiandae qui 2
-Earum nesciunt 4
-Possimus non et 3 7
-Amet 8
-Amet sit 9
-Reiciendis 2
-Qui 8
+Commodi 2 dolorem quas debitis 15
+one 1
+two 4
+three 5
