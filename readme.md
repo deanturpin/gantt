@@ -16,8 +16,10 @@ Compl 25 Apr 2017
 ```
 
 The tasks are stored in a plain text file: title followed by a space and a
-duration in whole days.
+duration in whole days. The start date is preceded by a hash otherwise today's date is used.
 ```
+# start 2 jan
+
 Sequi esse et occaecati perferendis 5
 Rerum laboriosam itaque cupiditate 10
 Commodi dolorem quas debitis 1
