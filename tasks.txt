@@ -1,5 +1,4 @@
 # Task title followed by space(s) and a duration in whole days
-# start 2 jan
 
 1 Sequi esse et occaecati perferendis     5
 Rerum laboriosam itaque cupiditate 10

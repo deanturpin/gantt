@@ -18,21 +18,23 @@ for (( i = 0; i < ${#tasks[*]}; ++i )); do
 
 		(( ++count ))
 
-		# Store title and duration
-		title=${BASH_REMATCH[1]}
+		# Store duration
 		duration=${BASH_REMATCH[2]}
 
-		# Construct task bar
-		bar='|'
-		for (( j = 0; j < $days; ++j )); do bar+=" "; done
-		for (( j = 0; j < $(( duration-1 )); ++j )); do bar+="-"; done
-		bar+='|'
+		# Store title and pad it
+		p=35
+		title=${BASH_REMATCH[1]:0:$p}
+		padding=$(( p+2 - $(wc -c <<< $title) ))
 
-		# Pretty print day count
-		[[ $duration == 1 ]] && daytext="day" || daytext="days"
+		# Construct task bar
+		bar=''
+		for (( j = 0; j < $padding; ++j )); do bar+=" "; done
+		bar+='| '
+		for (( j = 0; j < $days; ++j )); do bar+=" "; done
+		for (( j = 0; j < $duration; ++j )); do bar+="#"; done
 
 		# Print bar and title
-		echo "$bar" $count $title "($duration $daytext)"
+		echo -e $count "$title" "$bar"
 
 		# Update days by current task length
 		(( days += duration ))
@@ -55,7 +57,7 @@ readonly weeks=$(( days/5 ))
 readonly end=$(( secs + (days * 60 * 60 * 24) * 7 / 5 ))
 
 # Print summary
-echo Tasks $count
+echo
 echo Weeks $weeks
 echo Start $(date +"%d %b %Y" --date="@$secs")
 echo Compl $(date +"%d %b %Y" --date="@$end")
