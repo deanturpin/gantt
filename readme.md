@@ -1,3 +1,7 @@
+Project no longer maintained. Served a purpose. :)
+
+----
+
 ```bash
 1 1 Sequi esse et occaecati perferend  | #####
 2 Rerum laboriosam itaque cupiditate   |      ##########
